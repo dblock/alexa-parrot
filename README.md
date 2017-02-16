@@ -136,6 +136,53 @@ it('responds to a launch event', function() {
 });
 ```
 
+#### Deploy to Lambda
+
+Apex requires things to be in a functions directory, move this.
+
+```
+mkdir -p functions/parrot
+git mv parrot.js functions/parrot
+git mv package.json functions/parrot
+git mv test functions/parrot
+```
+
+* Sign into AWS Console, [https://console.aws.amazon.com](https://console.aws.amazon.com), choose Lambda.
+* Create a blank Lambda Function
+* Configure Alexa Skills Kit trigger
+* Name `alexa_parrot`
+* Create a new role, `alexa-parrot`
+* Get Apex, `curl https://raw.githubusercontent.com/apex/apex/master/install.sh | sh`
+* Get AWS CLI, `brew install awscli`
+* Configure access to AWS the first time, `aws configure`
+
+Create `functions/parrot/index.js`.
+
+```
+var parrot = require('parrot');
+
+exports.handler = parrot.lambda();
+```
+
+Create `project.json`.
+
+```json
+{
+  "name": "parrot",
+  "description": "I am a parrot.",
+  "memory": 128,
+  "timeout": 5,
+  "role": "arn:aws:iam::585031190124:role/service-role/alexa-parrot"
+}
+```
+
+Deploy.
+
+```
+apex deploy
+```
+
+
 
 
 
