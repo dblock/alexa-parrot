@@ -15,8 +15,7 @@ Require [alexa-app](https://github.com/alexa-js/alexa-app).
   "description": "A parrot skill.",
   "main": "parrot.js",
   "dependencies": {
-    "express": "^4.13.0",
-    "alexa-app": "^3.1.0",
+    "alexa-app": "^3.1.0"
   },
   "author": "Daniel Doubrovkine (db@artsy.net)",
   "license": "MIT"
@@ -38,12 +37,12 @@ npm install
 #### Parrot Implementation
 
 ```js
-var alexa = require("alexa-app");
+var alexa = require('alexa-app');
 
-var app = new alexa.app();
+var app = new alexa.app('parrot');
 
 app.launch(function(req, res) {
-  res.say("I am a parrot.");
+  res.say('I am a parrot.');
 });
 
 module.exports = app;
