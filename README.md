@@ -161,14 +161,14 @@ Create `functions/parrot/index.js`.
 ```
 var parrot = require('parrot');
 
-exports.handler = parrot.lambda();
+exports.handle = parrot.lambda();
 ```
 
 Create `project.json`.
 
 ```json
 {
-  "name": "parrot",
+  "name": "alexa",
   "description": "I am a parrot.",
   "memory": 128,
   "timeout": 5,
@@ -182,7 +182,51 @@ Deploy.
 apex deploy
 ```
 
+#### Configure Skill
 
+We need the skill to do something useful, first.
 
+```js
+app.intent('RepeatIntent', {
+    'slots': {
+      'VALUE': 'AMAZON.NUMBER'
+    },
+    'utterances': [
+      'repeat {-|VALUE}'
+    ]
+  },
+  function(req, res) {
+    var value = req.slot('VALUE');
+    res.say(`You said ${value}.`);
+    for (var i = 0; i < value; i++) {
+      res.say(`I repeat, you said ${value}.`);
+    }
+  }
+);
+```
 
+* Sign into AWS Developer Console, [https://developer.amazon.com](https://developer.amazon.com).
+* Choose Alexa, Alexa Skill Kit
+* Add a New Skill
+* Fill Out Forms
+
+Schema and utterances can be generated with `functions/parrot/skill.js`.
+
+```js
+var parrot = require('./parrot');
+
+console.log("SCHEMA: ");
+console.log(parrot.schema());
+
+console.log();
+console.log("UTTERANCES: ");
+console.log(parrot.utterances());
+```
+
+The skill is now available in [http://alexa.amazon.com](http://alexa.amazon.com).
+
+#### Try It
+
+* Alexa, open parrot.
+* Alexa, ask parrot to repeat 3.
 

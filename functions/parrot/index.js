@@ -1,4 +1,4 @@
 var parrot = require('parrot');
 
-exports.handler = parrot.lambda();
+exports.handle = parrot.lambda();
 
