@@ -182,9 +182,9 @@ Deploy.
 apex deploy
 ```
 
-#### Configure Skill
+#### A Useful Skill
 
-We need the skill to do something useful, first.
+Add this to `functions/parrot/parrot.js`.
 
 ```js
 app.intent('RepeatIntent', {
@@ -204,6 +204,35 @@ app.intent('RepeatIntent', {
   }
 );
 ```
+
+And a test to `functions/parrot/test/test_parrot.js`.
+
+```js
+it('responds to a repeat event', function() {
+  return request(server)
+    .post('/parrot')
+    .send({
+      request: {
+        type: 'IntentRequest',
+        intent: {
+          name: 'RepeatIntent',
+          slots: {
+            VALUE: {
+              name: "VALUE",
+              value: "2"
+            }
+          }
+        }
+      }
+    })
+    .expect(200).then(function(response) {
+      var ssml = response.body.response.outputSpeech.ssml;
+      return expect(ssml).to.eql('<speak>You said 2. I repeat, you said 2. I repeat, you said 2.</speak>');
+    });
+});
+```
+
+### Create a New Skill
 
 * Sign into AWS Developer Console, [https://developer.amazon.com](https://developer.amazon.com).
 * Choose Alexa, Alexa Skill Kit

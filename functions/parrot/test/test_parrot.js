@@ -55,4 +55,27 @@ describe('Parrot', function() {
         return expect(ssml).to.eql('<speak>I am a parrot.</speak>');
       });
   });
+
+  it('responds to a repeat event', function() {
+    return request(server)
+      .post('/parrot')
+      .send({
+        request: {
+          type: 'IntentRequest',
+          intent: {
+            name: 'RepeatIntent',
+            slots: {
+              VALUE: {
+                name: "VALUE",
+                value: "2"
+              }
+            }
+          }
+        }
+      })
+      .expect(200).then(function(response) {
+        var ssml = response.body.response.outputSpeech.ssml;
+        return expect(ssml).to.eql('<speak>You said 2. I repeat, you said 2. I repeat, you said 2.</speak>');
+      });
+  });
 });
