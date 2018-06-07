@@ -10,11 +10,11 @@ app.intent('RepeatIntent', {
   slots: {VALUE: 'AMAZON.NUMBER'},
   utterances: ['repeat {-|VALUE}']
 }, (req, res) => {
-  const value = req.slot('VALUE');
+  const slot = req.slot('VALUE') || 2;
 
-  res.say(`You said ${value}.`);
-  for (let i = 0; i < value; i++) {
-    res.say(`I repeat, you said ${value}.`);
+  res.say(`You said ${slot}.`);
+  for (let i = 0; i < slot; i++) {
+    res.say(`I repeat, you said ${slot}.`);
   }
 });
 

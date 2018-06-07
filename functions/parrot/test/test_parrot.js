@@ -45,9 +45,7 @@ describe('Parrot', () => {
     .expect(200)
     .then((response) => {
       const {ssml} = response.body.response.outputSpeech;
-  
-      console.log(ssml);
-  
+
       return expect(ssml).to.eql('<speak>I am a parrot.</speak>');
     }));
 
@@ -71,7 +69,6 @@ describe('Parrot', () => {
     .then((response) => {
       const {ssml} = response.body.response.outputSpeech;
 
-      
       return expect(ssml).to.eql('<speak>You said 2. I repeat, you said 2. I repeat, you said 2.</speak>');
     }));
 });
