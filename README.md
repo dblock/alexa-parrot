@@ -1,40 +1,45 @@
-## Alexa Parrot
+# Alexa Parrot
 
-Use Node 4 or better.
+A simple parroting skill for Alexa to grasp basics of creating alexa skills with Alexa-App library and deploying to AWS Lambda Functions. Requires Use NodeJS v8.x or higher.
 
-### A Parrot Function
+## Prerequisite files
 
-#### Package JSON
+### Package JSON
 
 Require [alexa-app](https://github.com/alexa-js/alexa-app).
 
 ```json
 {
   "name": "parrot",
-  "version": "0.1.0",
-  "description": "A parrot skill.",
+  "version": "1.0.0",
+  "description": "Alexa parroting skill",
   "main": "parrot.js",
   "dependencies": {
-    "alexa-app": "^3.1.0"
+    "alexa-app": "^4.2.2"
   },
   "author": "Daniel Doubrovkine (db@artsy.net)",
-  "license": "MIT"
+  "license": "MIT",
+  "engines": {
+    "node": ">=8.0.0"
+  }
 }
 ```
 
-#### .gitignore
+### .gitignore
 
 ```
 node_modules
 ```
 
-#### Install
+### Install
 
 ```
 yarn install
 ```
 
-#### Parrot Implementation
+## Coding the skill
+
+### Parrot Implementation
 
 ```js
 const alexa = require('alexa-app');
@@ -48,7 +53,7 @@ app.launch((req, res) => {
 module.exports = app;
 ```
 
-#### A Test
+### Writing basic MochaJS tests
 
 Add `express` and `mocha` to `package.json` and support for `npm test`.
 
@@ -94,7 +99,7 @@ describe('Parrot', () => {
 });
 ```
 
-#### Responds to Invalid Data
+**Respond to Invalid Data**
 
 ```js
 it('responds to invalid data', () => request(server)
@@ -115,7 +120,7 @@ it('responds to invalid data', () => request(server)
   })));
 ```
 
-#### Responds to a Launch Request
+**Responds to a Launch Request**
 
 ```js
 it('responds to a launch event', () => request(server)
@@ -131,15 +136,27 @@ it('responds to a launch event', () => request(server)
   }));
 ```
 
-#### Deploy to Lambda
+## Deployment to AWS Lambda
 
-Apex requires things to be in a functions directory, move this.
+For the deployment we will use Apex, which requires files to be in a `functions` directory so lets move some files around:
 
 ```
 mkdir -p functions/parrot
-git mv parrot.js functions/parrot
-git mv package.json functions/parrot
-git mv test functions/parrot
+mv parrot.js functions/parrot
+mv package.json functions/parrot
+mv test functions/parrot
+```
+
+New folder structure is:
+```
+.
+| functions/
+|─── parrot/
+|   | parrot.js
+|   | package.json
+|   |──test/
+|   |  | test_parrot.js
+└
 ```
 
 * Sign into AWS Console, [https://console.aws.amazon.com](https://console.aws.amazon.com), choose Lambda.
@@ -194,7 +211,7 @@ To deploy run this command:
 apex deploy
 ```
 
-#### A Useful Skill
+### Creating a replying function
 
 Add this to `functions/parrot/parrot.js`.
 
@@ -240,7 +257,7 @@ it('responds to a repeat event', () => request(server)
 });
 ```
 
-### Create a New Skill
+## Create a new Alexa Skill
 
 * Sign into [Alexa Developer Console](https://developer.amazon.com/alexa).
 * Hover over `Your Alexa Consoles` then select `Skills`
@@ -299,7 +316,7 @@ for (let i = 0; i < schema.intents.length; ++i) {
 
 The skill is now available in [http://alexa.amazon.com](http://alexa.amazon.com) under Skills → Your Skills → Dev Skills
 
-#### Try It
+## Try It
 
 * Alexa, open parrot.
 * Alexa, ask parrot to repeat 3.
