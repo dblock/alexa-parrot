@@ -1,81 +1,77 @@
-var express = require('express');
-var request = require('supertest');
-var chai = require('chai');
-var expect = chai.expect;
+/* eslint-disable no-undef, no-unused-vars, sort-vars, no-mixed-requires, global-require*/
+const express = require('express');
+const request = require('supertest');
+const {expect} = require('chai');
 
-describe('Parrot', function() {
-  var server;
+describe('Parrot', () => {
+  let server = null;
 
-  beforeEach(function() {
-    var app = express();
-    var parrot = require('../parrot');
+  beforeEach(() => {
+    const app = express();
+    const parrot = require('../parrot');
+
     parrot.express({
       expressApp: app,
-      router: express.Router(),
       debug: true,
       checkCert: false
     });
     server = app.listen(3000);
   });
 
-  afterEach(function() {
+  afterEach(() => {
     server.close();
   });
 
-  it('responds to invalid data', function() {
-    return request(server)
-      .post('/parrot')
-      .send({})
-      .expect(200).then(function(response) {
-        return expect(response.body).to.eql({
-          version: '1.0',
-          response: {
-            directives: [],
-            shouldEndSession: true,
-            outputSpeech: {
-              type: 'SSML',
-              ssml: '<speak>Error: not a valid request</speak>'
-            }
-          },
-          sessionAttributes: {}
-        });
-      });
-  });
-
-  it('responds to a launch event', function() {
-    return request(server)
-      .post('/parrot')
-      .send({
-        request: {
-          type: 'LaunchRequest',
+  it('responds to invalid data', () => request(server)
+    .post('/parrot')
+    .send({})
+    .expect(200)
+    .then(response => expect(response.body).to.eql({
+      version: '1.0',
+      response: {
+        directives: [],
+        shouldEndSession: true,
+        outputSpeech: {
+          type: 'SSML',
+          ssml: '<speak>Error: not a valid request</speak>'
         }
-      })
-      .expect(200).then(function(response) {
-        var ssml = response.body.response.outputSpeech.ssml;
-        return expect(ssml).to.eql('<speak>I am a parrot.</speak>');
-      });
-  });
+      },
+      sessionAttributes: {}
+    })));
 
-  it('responds to a repeat event', function() {
-    return request(server)
-      .post('/parrot')
-      .send({
-        request: {
-          type: 'IntentRequest',
-          intent: {
-            name: 'RepeatIntent',
-            slots: {
-              VALUE: {
-                name: "VALUE",
-                value: "2"
-              }
+  it('responds to a launch event', () => request(server)
+    .post('/parrot')
+    .send({request: {type: 'LaunchRequest'}})
+    .expect(200)
+    .then((response) => {
+      const {ssml} = response.body.response.outputSpeech;
+  
+      console.log(ssml);
+  
+      return expect(ssml).to.eql('<speak>I am a parrot.</speak>');
+    }));
+
+  it('responds to a repeat event', () => request(server)
+    .post('/parrot')
+    .send({
+      request: {
+        type: 'IntentRequest',
+        intent: {
+          name: 'RepeatIntent',
+          slots: {
+            VALUE: {
+              name: 'VALUE',
+              value: '2'
             }
           }
         }
-      })
-      .expect(200).then(function(response) {
-        var ssml = response.body.response.outputSpeech.ssml;
-        return expect(ssml).to.eql('<speak>You said 2. I repeat, you said 2. I repeat, you said 2.</speak>');
-      });
-  });
+      }
+    })
+    .expect(200)
+    .then((response) => {
+      const {ssml} = response.body.response.outputSpeech;
+
+      
+      return expect(ssml).to.eql('<speak>You said 2. I repeat, you said 2. I repeat, you said 2.</speak>');
+    }));
 });
