@@ -8,13 +8,13 @@ app.launch((req, res) => {
 
 app.intent('RepeatIntent', {
   slots: {VALUE: 'AMAZON.NUMBER'},
-  utterances: ['repeat {-|VALUE}']
+  utterances: ['repeat {-|VALUE}', 'to repeat {-|VALUE}']
 }, (req, res) => {
-  const slot = req.slot('VALUE') || 2;
+  const value = req.slot('VALUE') || 2;
 
-  res.say(`You said ${slot}.`);
-  for (let i = 0; i < slot; i++) {
-    res.say(`I repeat, you said ${slot}.`);
+  res.say(`You said ${value}.`);
+  for (let i = 0; i < value; i++) {
+    res.say(`I repeat, you said ${value}.`);
   }
 });
 

@@ -218,7 +218,7 @@ Add this to `functions/parrot/parrot.js`.
 ```js
 app.intent('RepeatIntent', {
   slots: {VALUE: 'AMAZON.NUMBER'},
-  utterances: ['repeat {-|VALUE}']
+  utterances: ['repeat {-|VALUE}', 'to repeat {-|VALUE}']
 }, (req, res) => {
   const value = req.slot('VALUE') || 2;
 
