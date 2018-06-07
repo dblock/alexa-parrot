@@ -55,7 +55,7 @@ module.exports = app;
 
 ### Writing basic MochaJS tests
 
-Add `express` and `mocha` to `package.json` and support for `npm test`.
+Add `express` and `mocha` to `package.json` and support for `yarn test`.
 
 ```json
 "devDependencies": {
