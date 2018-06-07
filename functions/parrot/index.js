@@ -1,4 +1,3 @@
-var parrot = require('parrot');
+const parrot = require('parrot');
 
 exports.handle = parrot.lambda();
-
