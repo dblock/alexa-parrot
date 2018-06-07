@@ -269,7 +269,7 @@ it('responds to a repeat event', () => request(server)
 * Go to `Endpoint` and select `AWS Lambda ARN`
 * Copy the AWS Lambda Function ARN by accessing it in the AWS dashboard and paste it in the text field for `Default Region`
 * In the Alexa Skills endpoint copy the skill ARN then in the Lambda Function configuration click the `Alexa Skills Kit` trigger, make sure `Skill ID verifcation` is enabled and paste the skill ARN in the text field then save the function
-* Save and build the model to test it
+* Save and build the model to test it (example: `ask parrot to repeat 3`)
 
 Intent data can be generated with `functions/parrot/skill.js`. Format the output of this file as proper JSON then paste it in the `JSON Editor`.
 
