@@ -266,52 +266,21 @@ it('responds to a repeat event', () => request(server)
 * Select `Custom` then `Create skill`
 * Go to `invocations` and in the `Skill Invocation Name` type `parrot`
 * Create the intent required for the skill
+* Go to `Endpoint` and select `AWS Lambda ARN`
+* Copy the AWS Lambda Function ARN by accessing it in the AWS dashboard and paste it in the text field for `Default Region`
+* In the Alexa Skills endpoint copy the skill ARN then in the Lambda Function configuration click the `Alexa Skills Kit` trigger, make sure `Skill ID verifcation` is enabled and paste the skill ARN in the text field then save the function
+* Save and build the model to test it
 
 Intent data can be generated with `functions/parrot/skill.js`. Format the output of this file as proper JSON then paste it in the `JSON Editor`.
 
 ```js
 const parrot = require('./parrot');
-const schema = JSON.parse(parrot.schema());
-const utterances = parrot.utterances().split('\n');
 
-Array.prototype.clean = function (deleteValue) {
-  for (let i = 0; i < this.length; i++) {
-    if (this[i] === deleteValue) {
-      this.splice(i, 1);
-      i--;
-    }
-  }
-
-  return this;
-};
-
-for (let i = 0; i < schema.intents.length; ++i) {
-  const slots = [];
-  const samples = [];
-
-  schema.intents[0].slots.forEach((slot) => {
-    slots.push({
-      name: slot.name,
-      type: slot.type
-    });
-  });
-
-  utterances.clean('').forEach((utter) => {
-    const splitUtter = utter.split(' '); // eslint-disable-line newline-after-var
-    samples.push(`${splitUtter[1]} ${splitUtter[2]}`);
-  });
-
-  console.dir({
-    name: schema.intents[i].intent,
-    slots: [slots],
-    samples: [samples]
-  }, {
-    showHidden: true,
-    depth: null,
-    colors: true
-  });
-  console.log();
-}
+console.log('Intent Schema:');
+console.log();
+console.log(parrot.schemas.skillBuilder());
+console.log('Utterances');
+console.log(parrot.utterances());
 ```
 
 The skill is now available in [http://alexa.amazon.com](http://alexa.amazon.com) under Skills → Your Skills → Dev Skills
