@@ -1,0 +1,52 @@
+version: 2
+machine:
+  environment:
+    PATH: "/opt/yarn/yarn-v1.5.1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:${PATH}:${HOME}/${alexa-parrot}/functions/parrot/node_modules/.bin"
+    NODE_ENV: test
+  node:
+    version: 8.11.2
+  npm:
+    version: 6.1.0
+jobs:
+  build:
+    docker:
+      - image: circleci/node:8
+    working_directory: ~/alexa-parrot/functions/parrot
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - yarn-packages-{{ .Branch }}-{{ checksum "functions/parrot/yarn.lock" }}
+            - yarn-packages-{{ .Branch }}
+            - yarn-packages-master
+            - yarn-packages-
+      - run:
+          name: Update APT
+          command: sudo apt-get update && sudo apt-get upgrade -y
+      - run:
+          name: Install apt-transport-https for yarn repo
+          command: sudo apt-get install -y apt-transport-https
+      - run:
+          name: Fetch yarn public gpg key
+          command: curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+      - run:
+          name: Add yarn repo to sources
+          command: echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+      - run:
+          name: Update apt and add build dependencies
+          command: sudo apt-get update && sudo apt-get install -y yarn build-essential
+      - run:
+          name: Install global node modules
+          command: sudo npm install -g node-pre-gyp node-gyp
+      - run:
+          name: Install alexa-parrot dependencies
+          command: cd functions/parrot && yarn install
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ .Branch }}-{{ checksum "functions/parrot/yarn.lock" }}
+          paths:
+            - node_modules
+      - run:
+          name: Run Tests
+          command: cd functions/parrot && yarn test
