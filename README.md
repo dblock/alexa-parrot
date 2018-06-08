@@ -2,9 +2,9 @@
 
 A simple parroting skill for Alexa to grasp basics of creating alexa skills with Alexa-App library and deploying to AWS Lambda Functions. Requires Use NodeJS v8.x or higher.
 
-## Prerequisite files
+# Prerequisite files
 
-### Package JSON
+## Package JSON
 
 Require [alexa-app](https://github.com/alexa-js/alexa-app).
 
@@ -25,21 +25,21 @@ Require [alexa-app](https://github.com/alexa-js/alexa-app).
 }
 ```
 
-### .gitignore
+## .gitignore
 
 ```
 node_modules
 ```
 
-### Install
+## Install
 
 ```
 yarn install
 ```
 
-## Coding the skill
+# Coding the skill
 
-### Parrot Implementation
+### Basic Alexa App
 
 ```js
 const alexa = require('alexa-app');
@@ -290,3 +290,16 @@ The skill is now available in [http://alexa.amazon.com](http://alexa.amazon.com)
 * Alexa, open parrot.
 * Alexa, ask parrot to repeat 3.
 
+# Setting up a CI service
+
+CI (Continuous Integration) services will run your tests every time you commit some code and integrate flawlessly with major Git players such as GitHub, BitBucket and GitLab. Having a CI service set up will motivate you to always ensure the code you push works lest you'll be seeing the "tests failed" everywhere you have notifiers for the service set up.
+
+For this project we have provided examples for setting up CI on Travis and on CircleCI. You can find the Travis setup [by clicking here](https://github.com/dblock/alexa-parrot/blob/master/.travis.yml) and the CircleCI setup [here](https://github.com/dblock/alexa-parrot/blob/master/circleci/config.yml)
+
+## Setting up TravisCI
+
+<Will be written in next commit>
+
+## Setting up CircleCI
+
+<Will be written in next commit>
