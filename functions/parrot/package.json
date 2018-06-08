@@ -4,14 +4,15 @@
   "description": "A parrot skill.",
   "main": "parrot.js",
   "dependencies": {
-    "express": "^4.13.0",
-    "alexa-app": "^3.1.0"
+    "alexa-app": "4.2.2",
+    "express": "^4.13.0"
   },
   "devDependencies": {
-    "mocha": "^2.3.4",
+    "chai": "4.1.2",
+    "eslint": "^4.19.1",
     "express": "^4.14.0",
-    "supertest": "^2.0.1",
-    "chai": "^3.4.1"
+    "mocha": "5.2.0",
+    "supertest": "3.1.0"
   },
   "scripts": {
     "test": "mocha test",

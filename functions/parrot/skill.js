@@ -1,9 +1,7 @@
-var parrot = require('./parrot');
+const parrot = require('./parrot');
 
-console.log("SCHEMA: ");
-console.log(parrot.schema());
-
+console.log('Intent Schema:');
 console.log();
-console.log("UTTERANCES: ");
+console.log(parrot.schemas.skillBuilder());
+console.log('Utterances');
 console.log(parrot.utterances());
-
