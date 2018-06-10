@@ -302,4 +302,7 @@ For this project we have provided examples for setting up CI on Travis and on Ci
 
 ## Setting up CircleCI
 
-<Will be written in next commit>
+1. Go to [CircleCI](https://circleci.com/) and create your account by signing in with GitHub or BitBucket
+2. Once on the dashboard go to `Add Projects` on the left and add your Alexa Skill project
+3. If you haven't committed your `config.yml` (in a folder `.circleci` in root) yet do so now
+4. Press the button `start building` to start testing your repo from this point forward
