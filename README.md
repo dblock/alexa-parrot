@@ -298,7 +298,12 @@ For this project we have provided examples for setting up CI on Travis and on Ci
 
 ## Setting up TravisCI
 
-<Will be written in next commit>
+1. Go to [TravisCI.org](https://travis-ci.org/) and create an account by signing in with your GitHub
+2. Once logged in click the `+` next to `My repositories` or navigate to your profile by clicking your name at the top right of the window
+3. Enable the repo you want to build for
+4. Push some code to the repo to start building
+
+Note: for private repositories please go to [TravisCI.com](https://travis-ci.com/) instead
 
 ## Setting up CircleCI
 
