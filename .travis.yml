@@ -9,12 +9,15 @@ cache:
     - functions/parrot/node_modules
 before_install:
   - sudo apt update
-  - sudo apt install -y apt-transport-https
+  - sudo apt install -y apt-transport-https build-essential
   - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
   - echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-  - sudo apt-get update && sudo apt-get install -y yarn build-essential
-  - sudo npm install -g node-pre-gyp node-gyp
+  - sudo apt update && sudo apt install -y yarn --no-install-recommends
+  - npm install -g node-pre-gyp node-gyp
+  - ls -al
 install:
+  - ls -al
   - cd functions/parrot && yarn install
 script:
+  - ls -al
   - cd functions/parrot && yarn test
