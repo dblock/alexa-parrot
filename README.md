@@ -1,5 +1,8 @@
 # Alexa Parrot
 
+[![Travis](https://img.shields.io/travis/dblock/alexa-parrot.svg?style=flat-square)](https://travis-ci.org/dblock/alexa-parrot) [![CircleCI](https://circleci.com/gh/dblock/alexa-parrot/tree/master.svg?style=shield)](https://circleci.com/gh/dblock/tree/master)
+
+
 A simple parroting skill for Alexa to grasp basics of creating alexa skills with Alexa-App library and deploying to AWS Lambda Functions. Requires Use NodeJS v8.x or higher.
 
 # Prerequisite files
